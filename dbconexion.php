@@ -56,22 +56,17 @@ class BaseDatos
 
     public function userInformation($userName)
     {
-        $result = mysql_query("SELECT * from `usuario` where `userName`= '".$userName."' and `activo` = true;", $this->conexion);
+        $result = mysql_query("SELECT u.*, ua.idDifunto FROM `usuario` u LEFT JOIN `usuarioautorizado` ua ON u.`idUsuario` = ua.`idUsuario` where u.`userName`= '".$userName."' and u.`activo` = true;", $this->conexion);
         if ($result == 0)
             return "";
         else {
-
-            $row = mysql_fetch_array($result);
+            $rows = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
             mysql_free_result($result);
-            return join(",", array(
-                $row['nombre'],
-                $row['apellido'],
-                $row['rol'],
-                $row['email'],
-                $row['activo'],
-				$row['idUsuario'],
-				$row['password'],
-				$row['userName']));
+
+            return json_encode($rows);
         }
     }
 
