@@ -78,13 +78,13 @@
 		}
 	}
 
-	function registrarUsuario($nombre, $apellido, $email, $idDifunto) {
+	function registrarUsuario($nombre, $apellido, $email, $idDifunto, $tipoUsuario) {
 	
 		$db = new BaseDatos();
 	
 		if($db->conectar()){
 	
-			if ($db->registrarUsuario($nombre, $apellido, $email, $idDifunto)) {
+			if ($db->registrarUsuario($nombre, $apellido, $email, $idDifunto, $tipoUsuario)) {
 				$db->desconectar();
 				return "true";
 			}
@@ -173,7 +173,7 @@
 	);
 
 	$server->register('registrarUsuario',
-		array('nombre' => 'xsd:string','apellido' => 'xsd:string','email' => 'xsd:string','idDifunto' => 'xsd:int'),
+		array('nombre' => 'xsd:string','apellido' => 'xsd:string','email' => 'xsd:string','idDifunto' => 'xsd:int','tipoUsuario' => 'xsd:string'),
 		array('return' => 'xsd:string'),
 		'urn:' . $myNamespace,
 		'urn:' . $myNamespace . "#registrarUsuario",

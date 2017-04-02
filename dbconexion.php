@@ -331,13 +331,13 @@ class BaseDatos
         }
     }
 
-    public function registrarUsuario($nombre, $apellido, $email,$idDifunto)
+    public function registrarUsuario($nombre, $apellido, $email,$idDifunto, $tipoUsuario)
     {
         $userName = strtolower($nombre[0])."".str_replace(" ","",strtolower($apellido)).rand(0, 999);
         $password ="".rand(1000, 9999);
-        
+
         $sql = "INSERT INTO `usuario` (`nombre`, `apellido`, `userName`, `password`, `rol`, `email`, `activo`, `borrado`, `fechaCreacion`)
-                VALUES ('".$nombre."', '".$apellido."', '".$userName."','".$password."','user','".$email."', true, false, now())";
+                VALUES ('".$nombre."', '".$apellido."', '".$userName."','".$password."','".$tipoUsuario."','".$email."', true, false, now())";
 
         if (mysql_query($sql, $this->conexion)){
 
@@ -346,7 +346,15 @@ class BaseDatos
             $sqlAutorizarUsuario = "INSERT INTO `usuarioautorizado` (`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idUsuario.",".$idDifunto.", 0, 0, now());";
 
             if (mysql_query($sqlAutorizarUsuario, $this->conexion)){
-                return "true";
+
+                if($tipoUsuario == "presenter"){
+                    $sqlPresenter = "INSERT INTO `usuarioPresentador` (`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idUsuario.",".$idDifunto.", 0, 0, now());";
+                    if (mysql_query($sqlPresenter, $this->conexion)){
+                        return "true";
+                    }
+                }else{
+                    return "true";
+                }
             }else{
                 return "false";
             }
