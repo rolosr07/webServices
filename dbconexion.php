@@ -347,14 +347,8 @@ class BaseDatos
 
             if (mysql_query($sqlAutorizarUsuario, $this->conexion)){
 
-                if($tipoUsuario == "presenter"){
-                    $sqlPresenter = "INSERT INTO `usuarioPresentador` (`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idUsuario.",".$idDifunto.", 0, 0, now());";
-                    if (mysql_query($sqlPresenter, $this->conexion)){
-                        return "true";
-                    }
-                }else{
-                    return "true";
-                }
+                return "true";
+
             }else{
                 return "false";
             }
