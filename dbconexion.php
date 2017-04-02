@@ -360,7 +360,7 @@ class BaseDatos
 
     public function getLogo()
     {
-        $result = mysql_query("SELECT `imagen`
+        $result = mysql_query("SELECT *
                                FROM `logo`
                                WHERE `nombre` = 'logo' limit 1;", $this->conexion);
         if ($result == 0)
