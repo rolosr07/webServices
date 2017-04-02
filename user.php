@@ -95,6 +95,16 @@
 		}
 	}
 
+	function loadLogo() {
+	
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->getLogo();
+			$db->desconectar();
+			return $list;
+		}
+	}
 	require_once "nusoap.php";
     $server = new soap_server();
 
@@ -180,6 +190,21 @@
 		'rpc',
 		'encoded',
 		'registrarUsuario.'
+	);
+
+	$server->register('loadLogo',
+		array(),
+		array('return' => 'xsd:string'),
+
+		'urn:' . $myNamespace,
+
+		'urn:' . $myNamespace . "#loadLogo",
+
+		'rpc',
+
+		'encoded',
+
+		'loadLogo.'
 	);
 
 	#$server->wsdl->schemaTargetNamespace = $myNamespace;

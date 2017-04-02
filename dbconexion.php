@@ -357,6 +357,22 @@ class BaseDatos
             return "false";
         }
     }
+
+    public function getLogo()
+    {
+        $result = mysql_query("SELECT `imagen`
+                               FROM `logo`
+                               WHERE `nombre` = 'logo' limit 1;", $this->conexion);
+        if ($result == 0)
+            return "";
+        else {
+
+            $row = mysql_fetch_assoc($result);
+            mysql_free_result($result);
+
+            return $row;
+        }
+    }
 }
 
 	
