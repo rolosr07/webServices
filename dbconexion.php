@@ -367,10 +367,13 @@ class BaseDatos
             return "";
         else {
 
-            $row = mysql_fetch_assoc($result);
+            $rows = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
             mysql_free_result($result);
 
-            return $row;
+            return json_encode($rows);
         }
     }
 }

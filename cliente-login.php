@@ -7,7 +7,7 @@
         echo "<h2>Constructor error</h2><pre>" . $error . "</pre>";
     }
 
-    $result = $cliente->call("registrarUsuario", array("nombre" => "Arturo","apellido" => "Mora","email" => "email@email.com","idDifunto" => "1"));
+    //$result = $cliente->call("registrarUsuario", array("nombre" => "Arturo","apellido" => "Mora","email" => "email@email.com","idDifunto" => "1"));
       
     if ($cliente->fault) {
         echo "<h2>Fault</h2><pre>";
