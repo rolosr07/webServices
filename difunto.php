@@ -54,6 +54,59 @@
 		}
 	}
 
+	function getDifuntosPorUsuarioList($idUsuario) {
+
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->getDifuntosPorUsuarioList($idUsuario);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function buscarDifuntosPorNombreOApellido($textoBusqueda) {
+
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->buscarDifuntosPorNombreOApellido($textoBusqueda);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function solicitarAccesoDifunto($idUsuario, $idDifunto) {
+
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->solicitarAccesoDifunto($idUsuario, $idDifunto);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function borrarImagenDifunto($idDifunto, $idImagen) {
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->borrarImagenDifunto($idDifunto, $idImagen);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function borrarUsuarioDifunto($idUsuarioAutorizado) {
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->borrarUsuarioDifunto($idUsuarioAutorizado);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
 	require_once "nusoap.php";
     $server = new soap_server();
 
@@ -119,6 +172,81 @@
 		'encoded',
 	
 		'registrarImagenDifunto.'
+	);
+
+	$server->register('getDifuntosPorUsuarioList',
+		array('idUsuario' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+
+		'urn:' . $myNamespace,
+
+		'urn:' . $myNamespace . "#getDifuntosPorUsuarioList",
+
+		'rpc',
+
+		'encoded',
+
+		'getDifuntosPorUsuarioList.'
+	);
+
+	$server->register('buscarDifuntosPorNombreOApellido',
+		array('textoBusqueda' => 'xsd:string'),
+		array('return' => 'xsd:string'),
+
+		'urn:' . $myNamespace,
+
+		'urn:' . $myNamespace . "#buscarDifuntosPorNombreOApellido",
+
+		'rpc',
+
+		'encoded',
+
+		'buscarDifuntosPorNombreOApellido.'
+	);
+
+	$server->register('solicitarAccesoDifunto',
+		array('idUsuario' => 'xsd:int','idDifunto' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+
+		'urn:' . $myNamespace,
+
+		'urn:' . $myNamespace . "#solicitarAccesoDifunto",
+
+		'rpc',
+
+		'encoded',
+
+		'solicitarAccesoDifunto.'
+	);
+
+	$server->register('borrarImagenDifunto',
+		array('idDifunto' => 'xsd:int','idImagen' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+
+		'urn:' . $myNamespace,
+
+		'urn:' . $myNamespace . "#borrarImagenDifunto",
+
+		'rpc',
+
+		'encoded',
+
+		'borrarImagenDifunto.'
+	);
+
+	$server->register('borrarUsuarioDifunto',
+		array('idUsuarioAutorizado' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+
+		'urn:' . $myNamespace,
+
+		'urn:' . $myNamespace . "#borrarUsuarioDifunto",
+
+		'rpc',
+
+		'encoded',
+
+		'borrarUsuarioDifunto.'
 	);
 
 	#$server->wsdl->schemaTargetNamespace = $myNamespace;

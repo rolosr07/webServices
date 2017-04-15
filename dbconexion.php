@@ -241,12 +241,11 @@ class BaseDatos
 
     public function getServiciosPorIdDifuntoYTipoDeServicioList($idDifunto, $idTipoServicio)
     {
-        $result = mysql_query("SELECT s.*,u.`nombre` as 'nombreUsuario', u.`apellido` as 'apellidoUsuario', sc.`fechaCreacion` as 'fechaCompra' FROM `servicio` s 
-            INNER JOIN `tiposervicio` ts ON s.`idTipoServicio` = ts.`idTipoServicio`
-            INNER JOIN `serviciocomprado` sc ON s.`idServicio` = sc.`idServicio`
-            INNER JOIN `usuario` u ON sc.`idUsuario` = u.`idUsuario`
-            INNER JOIN `usuarioautorizado` ua ON u.`idUsuario` = ua.`idUsuario`
-            WHERE s.`activo` = true AND sc.`activo` = true AND ts.`idTipoServicio` = ".$idTipoServicio." AND ua.`idDifunto` = ".$idDifunto.";", $this->conexion);
+        $result = mysql_query("SELECT s.*,u.`nombre` as 'nombreUsuario', u.`apellido` as 'apellidoUsuario', sc.`fechaCreacion` as 'fechaCompra' 
+                            FROM `servicio` s 
+                            INNER JOIN `serviciocomprado` sc ON s.`idServicio` = sc.`idServicio`
+                            INNER JOIN `usuario` u ON sc.`idUsuario` = u.`idUsuario`
+                            WHERE s.`activo` = true AND sc.`activo` = true AND s.`idTipoServicio` = ".$idTipoServicio." AND sc.`idDifunto` = ".$idDifunto.";", $this->conexion);
         if ($result == 0)
             return "";
         else {
@@ -261,14 +260,12 @@ class BaseDatos
         }
     }
 
-    public function getServiciosPorIdDifuntoYTipoDeServicioMensajesList($idDifunto, $idTipoServicio)
+    public function getServiciosPorIdDifuntoYTipoDeServicioMensajesList($idDifunto)
     {
         $result = mysql_query("SELECT s.*,u.`nombre` as 'nombreUsuario', u.`apellido` as 'apellidoUsuario', sc.`fechaCreacion` as 'fechaCompra', sc.`activo` AS 'autorizado', sc.`idServicioComprado` FROM `servicio` s 
-            INNER JOIN `tiposervicio` ts ON s.`idTipoServicio` = ts.`idTipoServicio`
             INNER JOIN `serviciocomprado` sc ON s.`idServicio` = sc.`idServicio`
-            INNER JOIN `usuario` u ON sc.`idUsuario` = u.`idUsuario`
-            INNER JOIN `usuarioautorizado` ua ON u.`idUsuario` = ua.`idUsuario`
-            WHERE ts.`idTipoServicio` = ".$idTipoServicio." AND ua.`idDifunto` = ".$idDifunto.";", $this->conexion);
+            INNER JOIN `usuario` u ON sc.`idUsuario` = u.`idUsuario`            
+            WHERE s.`idTipoServicio` in (8,9) AND sc.`idDifunto` = ".$idDifunto.";", $this->conexion);
         if ($result == 0)
             return "";
         else {
@@ -342,6 +339,35 @@ class BaseDatos
 
             if (mysql_query($sqlAutorizarUsuario, $this->conexion)){
 
+                $para  = $email;
+                $título = 'Registro de Usuario App Funeraria';
+
+                $mensaje = "<html>
+                            <head>
+                              <title>Registro de Usuario App Funeraria</title>
+                            </head>
+                            <body>
+                              <p>¡Estos son sus datos de acceso!</p>
+                              <table>
+                                <tr>
+                                  <th>Nombre</th><th>Usuario</th><th>Contraseña</th>
+                                </tr>
+                                <tr>
+                                  <td>".$nombre."</td><td>".$userName."</td><td>".$password."</td>
+                                </tr>                                
+                              </table>
+                            </body>
+                            </html>";
+
+                $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+                $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+
+                $cabeceras .= 'To: '.$nombre.' '.$email. " \r\n";
+                $cabeceras .= 'From: AppFuneraria' . "\r\n";
+
+                mail($para, $título, $mensaje, $cabeceras);
+
                 return "true";
 
             }else{
@@ -371,6 +397,168 @@ class BaseDatos
             return json_encode($rows);
         }
     }
+
+    public function getServiciosPorTipoDeServicioList($idTipoServicio)
+    {
+        $result = mysql_query("SELECT * FROM `servicio` WHERE `idTipoServicio` = ".$idTipoServicio.";", $this->conexion);
+        if ($result == 0)
+            return "";
+        else {
+
+            $rows = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+            mysql_free_result($result);
+
+            return json_encode($rows);
+        }
+    }
+
+    public function comprarServicio($idServicio, $idUsuario, $idDifunto)
+    {
+        $sql = "INSERT INTO `serviciocomprado` (`idServicio`,`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idServicio.", ".$idUsuario.", ".$idDifunto.", true, false, now())";
+
+        if (mysql_query($sql, $this->conexion)){
+
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+
+    public function getDifuntosPorUsuarioList($idUsuario)
+    {
+        $result = mysql_query("SELECT d.* FROM `difunto` d INNER JOIN `usuarioautorizado` ua ON d.`idDifunto` = ua.`idDifunto` WHERE ua.`idUsuario` = ".$idUsuario.";", $this->conexion);
+        if ($result == 0)
+            return "";
+        else {
+
+            $rows = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+            mysql_free_result($result);
+
+            return json_encode($rows);
+        }
+    }
+
+    public function comprarMensaje($idUsuario, $idDifunto, $mensajePersonal)
+    {
+        $idServicio = 0;
+        $sqlEsquela = "INSERT INTO `servicio` (`idTipoServicio`, `nombre`, `texto`, `activo`, `borrado`, `fechaCreacion`) VALUES(8,'Mensaje personalizado por el usuario ".$idUsuario."','".$mensajePersonal."',true,false,now());";
+        if (mysql_query($sqlEsquela, $this->conexion)){
+            $idServicio = mysql_insert_id();
+        }
+
+        
+        $sql = "INSERT INTO `serviciocomprado` (`idServicio`,`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idServicio.", ".$idUsuario.", ".$idDifunto.", false, false, now())";
+
+        if (mysql_query($sql, $this->conexion)){
+
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+
+    public function buscarDifuntosPorNombreOApellido($textoBusqueda)
+    {
+        $multipleValues = explode(" ", $textoBusqueda);
+
+        if(sizeof($multipleValues)>1){
+            $result = mysql_query("SELECT * FROM `difunto` WHERE `nombre` like '%".$multipleValues[0]."%' AND `apellidos` like '%".$multipleValues[1]."%';", $this->conexion);
+        }else{
+            $result = mysql_query("SELECT * FROM `difunto` WHERE `nombre` like '%".$textoBusqueda."%' OR `apellidos` like '%".$textoBusqueda."%';", $this->conexion);
+        }
+        
+        if ($result == 0)
+            return "";
+        else {
+
+            $rows = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+            mysql_free_result($result);
+
+            return json_encode($rows);
+        }
+    }
+
+    public function solicitarAccesoDifunto($idUsuario, $idDifunto)
+    {
+        $result = mysql_query("SELECT 1 FROM `usuarioautorizado` WHERE `idUsuario` = ".$idUsuario." AND `idDifunto` = ".$idDifunto.";");
+        $df = 0;
+        while ($row = mysql_fetch_assoc($result)) {
+            $df = $row[1];
+        }
+
+        if ($df == 1){
+            return "AccesoDado";
+        }else{
+            $sqlAutorizarUsuario = "INSERT INTO `usuarioautorizado` (`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idUsuario.",".$idDifunto.", 1, 0, now());";
+            if (mysql_query($sqlAutorizarUsuario, $this->conexion)){
+                return "true";
+            }
+            else {
+                return "false";
+            }
+        }
+        
+    }
+
+    public function borrarImagenDifunto($idDifunto, $idImagen)
+    {
+        $sqlBorrarImagen = "DELETE FROM `imagenesdifunto` WHERE `idDifunto` = ".$idDifunto." AND `idImagen` = ".$idImagen.";";
+
+        if (mysql_query($sqlBorrarImagen, $this->conexion)){
+
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+
+    public function borrarUsuarioDifunto($idUsuarioAutorizado)
+    {
+        $sqlBorrar = "DELETE FROM `usuarioautorizado` WHERE `idUsuarioAutorizado` =".$idUsuarioAutorizado.";";
+
+        if (mysql_query($sqlBorrar, $this->conexion)){
+
+            return "true";
+        }
+        else {
+            return "false";
+        }
+    }
+
+    public function getServiciosPorIdDifuntoFloresYVelas($idDifunto)
+    {
+        $result = mysql_query("SELECT s.*,u.`nombre` as 'nombreUsuario', u.`apellido` as 'apellidoUsuario', sc.`fechaCreacion` as 'fechaCompra' 
+                            FROM `servicio` s 
+                            INNER JOIN `serviciocomprado` sc ON s.`idServicio` = sc.`idServicio`
+                            INNER JOIN `usuario` u ON sc.`idUsuario` = u.`idUsuario`
+                            WHERE s.`activo` = true AND sc.`activo` = true AND s.`idTipoServicio` in (4,3) AND sc.`idDifunto` = ".$idDifunto.";", $this->conexion);
+        if ($result == 0)
+            return "";
+        else {
+
+            $rows = array();
+            while ($row = mysql_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+            mysql_free_result($result);
+
+            return json_encode($rows);
+        }
+    }
+
+
 }
 
 	

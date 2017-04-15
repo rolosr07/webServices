@@ -59,12 +59,12 @@
 		}
 	}
 
-	function getServiciosPorIdDifuntoYTipoDeServicioMensajesList($idDifunto, $idTipoServicio) {
+	function getServiciosPorIdDifuntoYTipoDeServicioMensajesList($idDifunto) {
 
 		$db = new BaseDatos();
 
 		if($db->conectar()){
-			$list = $db->getServiciosPorIdDifuntoYTipoDeServicioMensajesList($idDifunto, $idTipoServicio);
+			$list = $db->getServiciosPorIdDifuntoYTipoDeServicioMensajesList($idDifunto);
 			$db->desconectar();
 			return $list;
 		}
@@ -81,8 +81,49 @@
 		}
 	}
 
+	function getServiciosPorTipoDeServicioList($idTipoServicio) {
 
+		$db = new BaseDatos();
 
+		if($db->conectar()){
+			$list = $db->getServiciosPorTipoDeServicioList($idTipoServicio);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function comprarServicio($idServicio, $idUsuario, $idDifunto) {
+
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->comprarServicio($idServicio, $idUsuario, $idDifunto);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function comprarMensaje($idUsuario, $idDifunto, $mensajePersonal) {
+
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->comprarMensaje($idUsuario, $idDifunto, $mensajePersonal);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
+	function getServiciosPorIdDifuntoFloresYVelas($idDifunto) {
+
+		$db = new BaseDatos();
+
+		if($db->conectar()){
+			$list = $db->getServiciosPorIdDifuntoFloresYVelas($idDifunto);
+			$db->desconectar();
+			return $list;
+		}
+	}
 	require_once "nusoap.php";
     $server = new soap_server();
 
@@ -141,7 +182,7 @@
 	);
 
 	$server->register('getServiciosPorIdDifuntoYTipoDeServicioMensajesList',
-		array('idDifunto' => 'xsd:int','idTipoServicio' => 'xsd:int'),
+		array('idDifunto' => 'xsd:int'),
 		array('return' => 'xsd:string'),
 		'urn:' . $myNamespace,
 		'urn:' . $myNamespace . "#getServiciosPorIdDifuntoYTipoDeServicioMensajesList",
@@ -160,7 +201,45 @@
 		'actualizarServicioComprado.'
 	);
 
+	$server->register('getServiciosPorTipoDeServicioList',
+		array('idTipoServicio' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+		'urn:' . $myNamespace,
+		'urn:' . $myNamespace . "#getServiciosPorTipoDeServicioList",
+		'rpc',
+		'encoded',
+		'getServiciosPorTipoDeServicioList.'
+	);
 
+	$server->register('comprarServicio',
+		array('idServicio' => 'xsd:int','idUsuario' => 'xsd:int','idDifunto' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+		'urn:' . $myNamespace,
+		'urn:' . $myNamespace . "#comprarServicio",
+		'rpc',
+		'encoded',
+		'comprarServicio.'
+	);
+
+	$server->register('comprarMensaje',
+		array('idUsuario' => 'xsd:int','idDifunto' => 'xsd:int','mensajePersonal' => 'xsd:string'),
+		array('return' => 'xsd:string'),
+		'urn:' . $myNamespace,
+		'urn:' . $myNamespace . "#comprarMensaje",
+		'rpc',
+		'encoded',
+		'comprarMensaje.'
+	);
+
+	$server->register('getServiciosPorIdDifuntoFloresYVelas',
+		array('idDifunto' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+		'urn:' . $myNamespace,
+		'urn:' . $myNamespace . "#getServiciosPorIdDifuntoFloresYVelas",
+		'rpc',
+		'encoded',
+		'getServiciosPorIdDifuntoFloresYVelas.'
+	);
 
 	#$server->wsdl->schemaTargetNamespace = $myNamespace;
     $server->service(isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '');
