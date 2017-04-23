@@ -56,7 +56,7 @@ class BaseDatos
 
     public function userInformation($userName)
     {
-        $result = mysql_query("SELECT u.*, ua.idDifunto FROM `usuario` u LEFT JOIN `usuarioautorizado` ua ON u.`idUsuario` = ua.`idUsuario` where u.`userName`= '".$userName."' and u.`activo` = true;", $this->conexion);
+        $result = mysql_query("SELECT u.*, ua.idDifunto, CONCAT(d.nombre, ' ', d.apellidos) as nombreDifunto  FROM `usuario` u LEFT JOIN `usuarioautorizado` ua ON u.`idUsuario` = ua.`idUsuario` LEFT JOIN `difunto` d ON ua.idDifunto = d.idDifunto where u.`userName`= '".$userName."' and u.`activo` = true;", $this->conexion);
         if ($result == 0)
             return "";
         else {
@@ -92,15 +92,35 @@ class BaseDatos
         }
     }
 
-    public function registrarDifunto($nombre, $apellido,$fechaNacimiento, $fechaDeceso)
+    public function registrarDifunto($idUsuario, $idDifunto, $nombre, $apellido, $fechaNacimiento, $fechaDeceso)
     {
-        $sql = "INSERT INTO `difunto` (`nombre`,`apellidos`,`fechaNacimiento`,`fechaDefuncion`,`activo`,`borrado`,`fechaCreacion`)
-                VALUES('".$nombre."','".$apellido."','".$fechaNacimiento."','".$fechaDeceso."',true,false,now());";
+        if($idDifunto == 0){
 
-        if (mysql_query($sql, $this->conexion))
-            return true;
-        else {
-            return false;
+            $sql = "INSERT INTO `difunto` (`nombre`,`apellidos`,`fechaNacimiento`,`fechaDefuncion`,`activo`,`borrado`,`fechaCreacion`)
+                VALUES('".$nombre."','".$apellido."','".$fechaNacimiento."','".$fechaDeceso."', true, false, now());";
+
+            if (mysql_query($sql, $this->conexion)){
+                $sql2 = "INSERT INTO `usuarioautorizado` (`idUsuario`, `idDifunto`, `activo`, `borrado`, `fechaCreacion`)
+                VALUES(".$idUsuario.", ".mysql_insert_id().", true, false, now());";
+
+                if (mysql_query($sql2, $this->conexion)){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+
+        }else{
+
+            $sqlUpdate = "UPDATE `difunto` SET `nombre` = '".$nombre."', `apellidos` = '".$apellido."', `fechaNacimiento` = '".$fechaNacimiento."', `fechaDefuncion` = '".$fechaDeceso."' WHERE `idDifunto` = ".$idDifunto.";";
+
+            if (mysql_query($sqlUpdate, $this->conexion)){
+                return true;
+            }
         }
     }
 
@@ -195,27 +215,56 @@ class BaseDatos
 
     public function registrarInscripcion($idDifunto, $idImagenSuperior, $idOrla, $idEsquela, $idRestos, $esquelaPersonal){
 
-        if(!empty($esquelaPersonal)){
-            $sqlEsquela = "INSERT INTO `servicio` (`idTipoServicio`, `nombre`, `texto`, `activo`, `borrado`, `fechaCreacion`) VALUES(9,'Esquela personal ".$idDifunto."','".$esquelaPersonal."',true,false,now());";
-            if (mysql_query($sqlEsquela, $this->conexion)){
-                $idEsquela = mysql_insert_id();
+        $sqlPlaca = "SELECT 1 FROM `inscripcion` WHERE `idDifunto` = ".$idDifunto.";";
+        $result = mysql_query($sqlPlaca, $this->conexion);
+        $result = mysql_result($result,0);
+
+        if ($result){
+            if(!empty($esquelaPersonal)){
+                $sqlEsquela = "INSERT INTO `servicio` (`idTipoServicio`, `nombre`, `texto`, `activo`, `borrado`, `fechaCreacion`) VALUES(9,'Esquela personal ".$idDifunto."','".$esquelaPersonal."',true,false,now());";
+                if (mysql_query($sqlEsquela, $this->conexion)){
+                    $idEsquela = mysql_insert_id();
+                }
+            }
+
+            $sqlPlaca = "UPDATE `inscripcion` SET `idImagenSuperior` = ".$idImagenSuperior.", `idOrla` = ".$idOrla.", `idPoema` = ".$idEsquela.", `idLugarRestos` = ".$idRestos." WHERE `idDifunto` = ".$idDifunto.";";
+
+            if (mysql_query($sqlPlaca, $this->conexion)){
+                return "true";
+            }
+            else {
+                return "false";
             }
         }
-        $sqlPlaca = "INSERT INTO `inscripcion` (`idDifunto`, `idImagenSuperior`, `idOrla`, `idPoema`, `idLugarRestos`, `activo`, `borrado`, `fechaCreacion`) VALUES (".$idDifunto.",".$idImagenSuperior.",".$idOrla.",".$idEsquela.",".$idRestos.", true, false, now());";
-
-        if (mysql_query($sqlPlaca, $this->conexion)){
-            return "true";
-        }
         else {
-            return "false";
+
+            if(!empty($esquelaPersonal)){
+                $sqlEsquela = "INSERT INTO `servicio` (`idTipoServicio`, `nombre`, `texto`, `activo`, `borrado`, `fechaCreacion`) VALUES(9,'Esquela personal ".$idDifunto."','".$esquelaPersonal."',true,false,now());";
+                if (mysql_query($sqlEsquela, $this->conexion)){
+                    $idEsquela = mysql_insert_id();
+                }
+            }
+            $sqlPlaca = "INSERT INTO `inscripcion` (`idDifunto`, `idImagenSuperior`, `idOrla`, `idPoema`, `idLugarRestos`, `activo`, `borrado`, `fechaCreacion`) VALUES (".$idDifunto.",".$idImagenSuperior.",".$idOrla.",".$idEsquela.",".$idRestos.", true, false, now());";
+
+            if (mysql_query($sqlPlaca, $this->conexion)){
+                return "true";
+            }
+            else {
+                return "false";
+            }
         }
     }
 
     public function getPlacaInformation($idDifunto)
     {
         $result = mysql_query("SELECT d.`nombre`, d.`apellidos`, d.`fechaNacimiento`, d.`fechaDefuncion`,
-                                sis.`imagen` as 'imagenSuperior',sio.`imagen` as 'imagenOrla',
+                                sis.`idServicio` as 'idImagenSuperior',
+                                sis.`imagen` as 'imagenSuperior',
+                                sio.`idServicio` as 'idImagenOrla',
+                                sio.`imagen` as 'imagenOrla',
+                                sie.`idServicio` as 'idEsquela',
                                 sie.`texto` as 'esquela',
+                                r.`idLugarRestos` as 'idNombreLugarRestos',
                                 r.`nombre` as 'nombreLugarRestos',
                                 r.`ubicacion` as 'ubicacionLugarRestos'
                                 FROM `inscripcion` i 
@@ -280,9 +329,9 @@ class BaseDatos
         }
     }
 
-    public function actualizarServicioComprado($idServicioComprado){
+    public function actualizarServicioComprado($idServicioComprado, $estado){
 
-        $sqlPlaca = "UPDATE `serviciocomprado` SET `activo` = true WHERE `idServicioComprado` = ".$idServicioComprado.";";
+        $sqlPlaca = "UPDATE `serviciocomprado` SET `activo` = ".$estado." WHERE `idServicioComprado` = ".$idServicioComprado.";";
 
         if (mysql_query($sqlPlaca, $this->conexion)){
             return "true";
@@ -454,7 +503,7 @@ class BaseDatos
         }
 
         
-        $sql = "INSERT INTO `serviciocomprado` (`idServicio`,`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idServicio.", ".$idUsuario.", ".$idDifunto.", false, false, now())";
+        $sql = "INSERT INTO `serviciocomprado` (`idServicio`,`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idServicio.", ".$idUsuario.", ".$idDifunto.", true, false, now())";
 
         if (mysql_query($sql, $this->conexion)){
 
@@ -557,7 +606,6 @@ class BaseDatos
             return json_encode($rows);
         }
     }
-
 
 }
 

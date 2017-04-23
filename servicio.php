@@ -70,12 +70,12 @@
 		}
 	}
 
-	function actualizarServicioComprado($idServicioComprado) {
+	function actualizarServicioComprado($idServicioComprado, $estado) {
 	
 		$db = new BaseDatos();
 	
 		if($db->conectar()){
-			$list = $db->actualizarServicioComprado($idServicioComprado);
+			$list = $db->actualizarServicioComprado($idServicioComprado, $estado);
 			$db->desconectar();
 			return $list;
 		}
@@ -192,7 +192,7 @@
 	);
 
 	$server->register('actualizarServicioComprado',
-		array('idServicioComprado' => 'xsd:int'),
+		array('idServicioComprado' => 'xsd:int', 'estado' => 'xsd:int'),
 		array('return' => 'xsd:string'),
 		'urn:' . $myNamespace,
 		'urn:' . $myNamespace . "#actualizarServicioComprado",

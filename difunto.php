@@ -2,12 +2,12 @@
 
 	require_once "dbconexion.php";
 
-	function registrarDifunto($nombre, $apellido,$fechaNacimiento, $fechaDeceso) {
+	function registrarDifunto($idUsuario, $idDifunto, $nombre, $apellido, $fechaNacimiento, $fechaDeceso) {
 
 		$db = new BaseDatos();
 
 		if($db->conectar()){
-			if ($db->registrarDifunto($nombre, $apellido,$fechaNacimiento, $fechaDeceso)) {
+			if ($db->registrarDifunto($idUsuario, $idDifunto, $nombre, $apellido, $fechaNacimiento, $fechaDeceso)) {
 				$db->desconectar();
 				return "true";
 			}
@@ -115,7 +115,7 @@
 	$server->configureWSDL('UserServiceReference', 'urn:'.$myNamespace);
 
 	$server->register('registrarDifunto',
-		array('nombre' => 'xsd:string','apellido' => 'xsd:string','fechaNacimiento' => 'xsd:string','fechaDeceso' => 'xsd:string'),
+		array('idUsuario'=> 'xsd:int', 'idDifunto'=> 'xsd:int', 'nombre' => 'xsd:string','apellido' => 'xsd:string','fechaNacimiento' => 'xsd:string','fechaDeceso' => 'xsd:string'),
 		array('return' => 'xsd:string'),
 
 		'urn:' . $myNamespace,
