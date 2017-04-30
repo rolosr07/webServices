@@ -1,5 +1,4 @@
 <?php
-
 	require_once "dbconexion.php";
       
 	function login($userName, $password) {
