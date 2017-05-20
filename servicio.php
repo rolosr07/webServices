@@ -124,7 +124,20 @@
 			return $list;
 		}
 	}
+
+	function placaInformationNeedDownload($idDifunto) {
+	
+		$db = new BaseDatos();
+	
+		if($db->conectar()){
+			$list = $db->placaInformationNeedDownload($idDifunto);
+			$db->desconectar();
+			return $list;
+		}
+	}
+
 	require_once "nusoap.php";
+
     $server = new soap_server();
 
 	$myNamespace = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
@@ -239,6 +252,16 @@
 		'rpc',
 		'encoded',
 		'getServiciosPorIdDifuntoFloresYVelas.'
+	);
+
+	$server->register('placaInformationNeedDownload',
+		array('idDifunto' => 'xsd:int'),
+		array('return' => 'xsd:string'),
+		'urn:' . $myNamespace,
+		'urn:' . $myNamespace . "#placaInformationNeedDownload",
+		'rpc',
+		'encoded',
+		'placaInformationNeedDownload.'
 	);
 
 	#$server->wsdl->schemaTargetNamespace = $myNamespace;

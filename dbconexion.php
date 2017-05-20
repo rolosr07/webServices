@@ -119,6 +119,8 @@ class BaseDatos
             $sqlUpdate = "UPDATE `difunto` SET `nombre` = '".$nombre."', `apellidos` = '".$apellido."', `fechaNacimiento` = '".$fechaNacimiento."', `fechaDefuncion` = '".$fechaDeceso."' WHERE `idDifunto` = ".$idDifunto.";";
 
             if (mysql_query($sqlUpdate, $this->conexion)){
+                $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 1 WHERE `idDifunto` = ".$idDifunto.";";
+                mysql_query($sqlUpdateIns, $this->conexion);
                 return true;
             }
         }
@@ -151,6 +153,8 @@ class BaseDatos
             $sqlImagenImagenDifunto = "INSERT INTO `imagenesdifunto` (`idDifunto`, `idImagen`) VALUES(".$idDifunto.",".$idImagen.");";
 
             if (mysql_query($sqlImagenImagenDifunto, $this->conexion)){
+                $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 1 WHERE `idDifunto` = ".$idDifunto.";";
+                mysql_query($sqlUpdateIns, $this->conexion);
                 return "true";
             }else{
                 return "false";
@@ -227,7 +231,7 @@ class BaseDatos
                 }
             }
 
-            $sqlPlaca = "UPDATE `inscripcion` SET `idImagenSuperior` = ".$idImagenSuperior.", `idOrla` = ".$idOrla.", `idPoema` = ".$idEsquela.", `idLugarRestos` = ".$idRestos." WHERE `idDifunto` = ".$idDifunto.";";
+            $sqlPlaca = "UPDATE `inscripcion` SET `download` = 1, `idImagenSuperior` = ".$idImagenSuperior.", `idOrla` = ".$idOrla.", `idPoema` = ".$idEsquela.", `idLugarRestos` = ".$idRestos." WHERE `idDifunto` = ".$idDifunto.";";
 
             if (mysql_query($sqlPlaca, $this->conexion)){
                 return "true";
@@ -266,7 +270,8 @@ class BaseDatos
                                 sie.`texto` as 'esquela',
                                 r.`idLugarRestos` as 'idNombreLugarRestos',
                                 r.`nombre` as 'nombreLugarRestos',
-                                r.`ubicacion` as 'ubicacionLugarRestos'
+                                r.`ubicacion` as 'ubicacionLugarRestos',
+                                i.`download`
                                 FROM `inscripcion` i 
                                 INNER JOIN `difunto` d on i.`idDifunto` = d.`idDifunto` 
                                 INNER JOIN `servicio` sis ON sis.`idServicio` = i.`idImagenSuperior`
@@ -334,6 +339,8 @@ class BaseDatos
         $sqlPlaca = "UPDATE `serviciocomprado` SET `activo` = ".$estado." WHERE `idServicioComprado` = ".$idServicioComprado.";";
 
         if (mysql_query($sqlPlaca, $this->conexion)){
+            $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 1 WHERE `idDifunto` = (SELECT `idDifunto` FROM `serviciocomprado` WHERE `idServicioComprado` = ".$idServicioComprado.");";
+            mysql_query($sqlUpdateIns, $this->conexion);
             return "true";
         }
         else {
@@ -469,7 +476,8 @@ class BaseDatos
         $sql = "INSERT INTO `serviciocomprado` (`idServicio`,`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idServicio.", ".$idUsuario.", ".$idDifunto.", true, false, now())";
 
         if (mysql_query($sql, $this->conexion)){
-
+            $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 1 WHERE `idDifunto` = ".$idDifunto.");";
+            mysql_query($sqlUpdateIns, $this->conexion);
             return "true";
         }
         else {
@@ -501,12 +509,12 @@ class BaseDatos
         if (mysql_query($sqlEsquela, $this->conexion)){
             $idServicio = mysql_insert_id();
         }
-
         
         $sql = "INSERT INTO `serviciocomprado` (`idServicio`,`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idServicio.", ".$idUsuario.", ".$idDifunto.", true, false, now())";
 
         if (mysql_query($sql, $this->conexion)){
-
+            $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 1 WHERE `idDifunto` = ".$idDifunto.");";
+            mysql_query($sqlUpdateIns, $this->conexion);
             return "true";
         }
         else {
@@ -565,7 +573,8 @@ class BaseDatos
         $sqlBorrarImagen = "DELETE FROM `imagenesdifunto` WHERE `idDifunto` = ".$idDifunto." AND `idImagen` = ".$idImagen.";";
 
         if (mysql_query($sqlBorrarImagen, $this->conexion)){
-
+            $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 1 WHERE `idDifunto` = ".$idDifunto.";";
+            mysql_query($sqlUpdateIns, $this->conexion);
             return "true";
         }
         else {
@@ -603,10 +612,54 @@ class BaseDatos
             }
             mysql_free_result($result);
 
+            $sqlUpdateIns = "UPDATE `inscripcion` SET `download` = 0 WHERE `idDifunto` = ".$idDifunto.";";
+            mysql_query($sqlUpdateIns, $this->conexion);
+
             return json_encode($rows);
         }
     }
 
+    public function placaInformationNeedDownload($idDifunto)
+    {
+        $result = mysql_query("SELECT i.`download` FROM `inscripcion` i WHERE i.`idDifunto` = ".$idDifunto." LIMIT 1;", $this->conexion);        
+        $result = mysql_result($result,0);
+
+        if ($result){
+            return "true";
+        }else{
+            return "false";
+        }
+    }
+
+    public function registroUsuario($nombre, $apellido, $email,$idDifunto, $tipoUsuario)
+    {
+        $userName = strtolower($nombre[0])."".str_replace(" ","",strtolower($apellido)).rand(0, 999);
+        $password ="".rand(1000, 9999);
+
+        $sql = "INSERT INTO `usuario` (`nombre`, `apellido`, `userName`, `password`, `rol`, `email`, `activo`, `borrado`, `fechaCreacion`)
+                VALUES ('".$nombre."', '".$apellido."', '".$userName."','".$password."','".$tipoUsuario."','".$email."', true, false, now())";
+
+        if (mysql_query($sql, $this->conexion)){
+
+            $idUsuario = mysql_insert_id();
+
+            if($idDifunto != 0){
+                $sqlAutorizarUsuario = "INSERT INTO `usuarioautorizado` (`idUsuario`,`idDifunto`,`activo`,`borrado`,`fechaCreacion`) VALUES(".$idUsuario.",".$idDifunto.", 0, 0, now());";
+                mysql_query($sqlAutorizarUsuario, $this->conexion);
+            }
+
+            $db = new BaseDatos();
+
+            if($db->conectar()){
+                $list = $db->userInformation($userName);
+                $db->desconectar();
+                return $list;
+            }
+        }
+        else {
+            return "";
+        }
+    }
 }
 
 	

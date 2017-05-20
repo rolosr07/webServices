@@ -94,6 +94,17 @@
 		}
 	}
 
+	function registroUsuario($nombre, $apellido, $email, $idDifunto, $tipoUsuario) {
+	
+		$db = new BaseDatos();
+		$list = "";
+		if($db->conectar()){
+			$list = $db->registroUsuario($nombre, $apellido, $email, $idDifunto, $tipoUsuario) ;
+			$db->desconectar();			
+		}
+		return $list;
+	}
+
 	function loadLogo() {
 	
 		$db = new BaseDatos();
@@ -104,7 +115,9 @@
 			return $list;
 		}
 	}
+
 	require_once "nusoap.php";
+
     $server = new soap_server();
 
 	$myNamespace = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
@@ -204,6 +217,16 @@
 		'encoded',
 
 		'loadLogo.'
+	);
+
+	$server->register('registroUsuario',
+		array('nombre' => 'xsd:string','apellido' => 'xsd:string','email' => 'xsd:string','idDifunto' => 'xsd:int','tipoUsuario' => 'xsd:string'),
+		array('return' => 'xsd:string'),
+		'urn:' . $myNamespace,
+		'urn:' . $myNamespace . "#registroUsuario",
+		'rpc',
+		'encoded',
+		'registroUsuario.'
 	);
 
 	#$server->wsdl->schemaTargetNamespace = $myNamespace;
