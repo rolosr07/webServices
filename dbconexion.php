@@ -319,7 +319,7 @@ class BaseDatos
         $result = mysql_query("SELECT s.*,u.`nombre` as 'nombreUsuario', u.`apellido` as 'apellidoUsuario', sc.`fechaCreacion` as 'fechaCompra', sc.`activo` AS 'autorizado', sc.`idServicioComprado` FROM `servicio` s 
             INNER JOIN `serviciocomprado` sc ON s.`idServicio` = sc.`idServicio`
             INNER JOIN `usuario` u ON sc.`idUsuario` = u.`idUsuario`            
-            WHERE s.`idTipoServicio` in (8,9) AND sc.`idDifunto` = ".$idDifunto.";", $this->conexion);
+            WHERE s.`idTipoServicio` in (8,9) AND sc.`idDifunto` = ".$idDifunto." AND sc.`activo` = 1;", $this->conexion);
         if ($result == 0)
             return "";
         else {
