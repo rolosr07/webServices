@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Eternal Innova</title><meta charset="UTF-8" />
+        <meta name="description" content="Panel de control Eternal Innova, donde podras dar de alta todos los Equipos fabricados por Eternal, productos y servicios para funerarias y profesionales del sector."/>
+        <meta name="keywords" content="eternal, eternal innova, mesit, funerarias, condolencias, libro memorial, esquelas, mesit premiun, "/><meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
+<link rel="stylesheet" href="css/matrix-style.css" />
+<link rel="stylesheet" href="css/matrix-media.css" />
+<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/jquery.gritter.css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+  <h1><a href="dashboard.html">Eternal Innova Administración</a></h1>
+</div>
+<!--close-Header-part--> 
+
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Bienvenido</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-user"></i> Mi Perfil</a></li>
+        
+        <li class="divider"></li>
+        <li><a href="login.html"><i class="icon-key"></i> Salir</a></li>
+      </ul>
+    </li>
+    
+   
+    <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Salir</span></a></li>
+  </ul>
+</div>
+<!--close-top-Header-menu-->
+
+<!--sidebar-menu-->
+<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Inicio</a>
+  <ul>
+    <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Inicio</span></a> </li>
+
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Clientes</span> </a>
+      <ul>
+        <li><a href="altacliente.html">Alta de Clientes</a></li>
+        <li><a href="asociarproducto.html">Asociar productos a clientes</a></li>
+       
+      </ul>
+    </li>
+     <li> <a href="floristeria.html"><i class="icon icon-gift"></i> <span>Alta de Floristerias</span></a> </li>
+    <li> <a href="altaproducto.html"><i class="icon icon-gift"></i> <span>Alta de productos</span></a> </li>
+
+    <li class="submenu"> <a href="#"><i class="icon icon-picture"></i> <span>Imagenes</span> </a>
+      <ul>
+        <li><a href="imagenesreligiosas.html">Alta de Imagenes religiosas</a></li>
+        <li><a href="flores.html">Alta de Flores</a></li>
+        <li><a href="vela.html">Alta de Velas</a></li>
+        <li><a href="musica.html">Alta de Música</a></li>
+       
+      </ul>
+    </li>
+
+     <li class="submenu"> <a href="#"><i class="icon icon-book"></i> <span>Pedidos de Libros</span> </a>
+      <ul>
+        <li><a href="librospendientes.html">Pendientes de servir</a></li>
+        <li><a href="librosservidos.html">Servidos</a></li>
+        
+       
+      </ul>
+    </li>
+
+    <li class="submenu"> <a href="#"><i class="icon icon-copy"></i> <span>Listados de Ventas</span> </a>
+      <ul>
+        <li><a href="ventafecha.html">Ventas por fecha</a></li>
+        <li><a href="ventafuneraria.html">Ventas por funeraria</a></li>
+         <li><a href="ventafloristeria.html">Ventas por floristeria</a></li>
+        <li><a href="ventadifunto.html">Ventas al difunto</a></li>
+        <li><a href="ventaaparato.html">Ventas por equipos</a></li>
+        
+       
+      </ul>
+    </li>
+
+
+    
+</div>
+<!--sidebar-menu-->
+
+<div id="content">
+<div id="content-header">
+  
+  <h1>Alta y Modificación de Floristeria</h1>
+</div>
+<div class="container-fluid">
+  <hr>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Alta de Floristeria</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="#" method="get" class="form-horizontal">
+            
+            <div class="control-group">
+              <label class="control-label">Nombre Fiscal :</label>
+              <div class="controls">
+                <input type="text" class="span11" placeholder="Nombre fiscal" />
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Persona de Contacto :</label>
+              <div class="controls">
+                <input type="text" class="span11" placeholder="Persona de contacto" />
+              </div>
+            </div>
+           
+           <div class="control-group">
+              <label class="control-label">CIF :</label>
+              <div class="controls">
+                <input type="text" class="span11" placeholder="CIF" />
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Dirección :</label>
+              <div class="controls">
+                <input type="text" class="span11" placeholder="Dirección" />
+              </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Provincia :</label>
+              <div class="controls">
+                <input type="text" class="span11" placeholder="lista despegable Provincia" />
+                
+                </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Localidad :</label>
+              <div class="controls">
+                 <input type="text" class="span11" placeholder="Lista despegable Localidad" />
+                </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Número de Cuenta :</label>
+              <div class="controls">
+                 <input type="text" class="span11" placeholder="Número de cuenta" />
+                </div>
+            </div>
+
+
+            <div class="control-group">
+              <label class="control-label">Teléfono :</label>
+              <div class="controls">
+                 <input type="text" class="span11" placeholder="Teléfono" />
+                </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Email :</label>
+              <div class="controls">
+                 <input type="text" class="span11" placeholder="email" />
+                </div>
+            </div>
+
+            <div class="control-group">
+              <label class="control-label">Web :</label>
+              <div class="controls">
+                 <input type="text" class="span11" placeholder="Web" />
+                </div>
+            </div>
+
+<hr>  
+            <div class="control-group">
+              <label class="control-label">Funeraria que la recomienda:</label>
+              <div class="controls">
+                 <input type="text" class="span11" placeholder="despegable base datos funerarias" />
+                </div>
+            </div>
+
+
+
+
+            <div class="control-group">
+              <label class="control-label">Observaciones</label>
+              <div class="controls">
+                <textarea class="span11" ></textarea>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-success">Guardar</button>
+              <button type="submit" class="btn btn-success">Borrar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    <div class="span6">
+      <div class="widget-box">
+        <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
+          <h5>Listado de floristerias dadas de alta.</h5>
+        </div>
+        <div class="widget-content nopadding">
+          <form action="#" class="form-horizontal">
+            <div class="control-group">
+              <label for="normal" class="control-label">listado de todas las floristerias para poder seleccionar y modificar en la parte izquierda<br><br>Visualizar floristeria, funeraria que lo recomienda, localidad y ciudad </label>
+              
+            </div>
+            
+          </form>
+        </div>
+      </div>
+      
+    </div>  </div>
+</div></div>
+<!--Footer-part-->
+
+<div class="row-fluid">
+  <div id="footer" class="span12"> Web realizada por Informatica Manchuela </div>
+</div>
+
+<!--end-Footer-part-->
+<script src="js/jquery.min.js"></script> 
+<script src="js/jquery.ui.custom.js"></script> 
+<script src="js/bootstrap.min.js"></script> 
+<script src="js/bootstrap-colorpicker.js"></script> 
+<script src="js/bootstrap-datepicker.js"></script> 
+<script src="js/jquery.toggle.buttons.js"></script> 
+<script src="js/masked.js"></script> 
+<script src="js/jquery.uniform.js"></script> 
+<script src="js/select2.min.js"></script> 
+<script src="js/matrix.js"></script> 
+<script src="js/matrix.form_common.js"></script> 
+<script src="js/wysihtml5-0.3.0.js"></script> 
+<script src="js/jquery.peity.min.js"></script> 
+<script src="js/bootstrap-wysihtml5.js"></script> 
+<script>
+	$('.textarea_editor').wysihtml5();
+</script>
+</body>
+</html>

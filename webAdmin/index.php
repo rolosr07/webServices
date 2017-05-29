@@ -8,7 +8,6 @@ $userInformation = json_decode($_SESSION["USER_INFORMATION"], true);
 
 $userInformation = $userInformation[0];
 
-
 ?>
 
 <!DOCTYPE html>
@@ -39,9 +38,9 @@ $userInformation = $userInformation[0];
 <!--top-Header-menu-->
 <div id="user-nav" class="navbar navbar-inverse">
   <ul class="nav">
-    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Bienvenido <?php echo $userInformation["nombre"]?></span><b class="caret"></b></a>
+    <li  class="dropdown" id="profile-messages" ><a title="" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text">Bienvenido <?php echo $userInformation["nombre"]?></span><b class="caret"></b></a>
       <ul class="dropdown-menu">
-        <li><a href="#"><i class="icon-user"></i> Mi Perfil</a></li>
+        <li><a><i class="icon-user"></i> Mi Perfil</a></li>
         
         <li class="divider"></li>
         <li><a href="login.php"><i class="icon-key"></i> Salir</a></li>
@@ -55,200 +54,104 @@ $userInformation = $userInformation[0];
 <!--close-top-Header-menu-->
 
 <!--sidebar-menu-->
-<div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Inicio</a>
+<div id="sidebar"><a href="index.php?page=index" class="visible-phone"><i class="icon icon-home"></i> Inicio</a>
   <ul>
-    <li class="active"><a href="index.html"><i class="icon icon-home"></i> <span>Inicio</span></a> </li>
+    <li class="active"><a href="index.php?page=index"><i class="icon icon-home"></i> <span>Inicio</span></a> </li>
 
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Clientes</span> </a>
       <ul>
-        <li><a href="altacliente.html">Alta de Clientes</a></li>
-        <li><a href="asociarproducto.html">Asociar productos a clientes</a></li>
-       
+        <li><a href="index.php?page=altaCliente">Alta de Clientes</a></li>
+        <li><a href="index.php?page=asociarProducto">Asociar productos a clientes</a></li>
       </ul>
     </li>
-     <li> <a href="floristeria.html"><i class="icon icon-gift"></i> <span>Alta de Floristerias</span></a> </li>
-    <li> <a href="altaproducto.html"><i class="icon icon-gift"></i> <span>Alta de productos</span></a> </li>
+     <li> <a href="index.php?page=floristeria"><i class="icon icon-gift"></i> <span>Alta de Floristerias</span></a> </li>
+    <li> <a href="index.php?page=altaProducto"><i class="icon icon-gift"></i> <span>Alta de productos</span></a> </li>
 
     <li class="submenu"> <a href="#"><i class="icon icon-picture"></i> <span>Imagenes</span> </a>
       <ul>
-        <li><a href="imagenesreligiosas.html">Alta de Imagenes religiosas</a></li>
-        <li><a href="flores.html">Alta de Flores</a></li>
-        <li><a href="vela.html">Alta de Velas</a></li>
-        <li><a href="musica.html">Alta de Música</a></li>
-       
+        <li><a href="index.php?page=imagenesReligiosas">Alta de Imagenes religiosas</a></li>
+        <li><a href="index.php?page=flores">Alta de Flores</a></li>
+        <li><a href="index.php?page=vela">Alta de Velas</a></li>
+        <li><a href="index.php?page=musica">Alta de Música</a></li>
       </ul>
     </li>
 
      <li class="submenu"> <a href="#"><i class="icon icon-book"></i> <span>Pedidos de Libros</span> </a>
       <ul>
-        <li><a href="librospendientes.html">Pendientes de servir</a></li>
-        <li><a href="librosservidos.html">Servidos</a></li>
-        
-       
+        <li><a href="index.php?page=librosPendientes">Pendientes de servir</a></li>
+        <li><a href="index.php?page=librosServidos">Servidos</a></li>
       </ul>
     </li>
 
     <li class="submenu"> <a href="#"><i class="icon icon-copy"></i> <span>Listados de Ventas</span> </a>
       <ul>
-        <li><a href="ventafecha.html">Ventas por fecha</a></li>
-        <li><a href="ventafuneraria.html">Ventas por funeraria</a></li>
-         <li><a href="ventafloristeria.html">Ventas por floristeria</a></li>
-        <li><a href="ventadifunto.html">Ventas al difunto</a></li>
-        <li><a href="ventaaparato.html">Ventas por equipos</a></li>
-        
-       
+        <li><a href="index.php?page=ventaFecha">Ventas por fecha</a></li>
+        <li><a href="index.php?page=ventafuneraria">Ventas por funeraria</a></li>
+         <li><a href="index.php?page=ventaFloristeria">Ventas por floristeria</a></li>
+        <li><a href="index.php?page=ventadifunto">Ventas al difunto</a></li>
+        <li><a href="index.php?page=ventaAparato">Ventas por equipos</a></li>
       </ul>
     </li>
-
-
-    
 </div>
 <!--sidebar-menu-->
 
 <!--main-container-part-->
 <div id="content">
-
-
-<!--Action boxes-->
-  <div class="container-fluid">
-    <div class="quick-actions_homepage">
-      <ul class="quick-actions">
-        <li class="bg_lb"> <a href="index.html"> <i class="icon-dashboard"></i>  Inicio </a> </li>
-        <li class="bg_lg span3"> <a href="librospendientes.html"> <i class="icon-book"></i> Libros Pendientes</a> </li>
-        <li class="bg_ly"> <a href="altacliente.html"> <i class="icon-group"></i> Alta Cliente </a> </li>
-        <li class="bg_lo"> <a href="altaproducto.html"> <i class="icon-th"></i> Alta productos</a> </li>
-        <li class="bg_ls"> <a href="flores.html"> <i class="icon-leaf"></i> Alta Flores</a> </li>
-        
-
-      </ul>
-    </div>
-<!--End-Action boxes-->    
-
-
-    <hr/>
-    <div class="row-fluid">
-      <div class="span6">
-        <div class="widget-box">
-          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-            <h5>Ultimas ventas de flores físicas</h5>
-          </div>
-          <div class="widget-content nopadding collapse in" id="collapseG2">
-            <ul class="recent-posts">
-              <li>
-                
-                <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 49,50 €</a> </p>
-                </div>
-              </li>
-              <li>
-               
-                 <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 49,50 €</a> </p>
-                </div>
-              </li>
-              <li>
-               
-                 <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 49,50 €</a> </p>
-                </div>
-             
-            </ul>
-          </div>
-        </div>
-        
-        <div class="widget-box">
-          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-            <h5>Ultimas ventas de flores virtuales</h5>
-          </div>
-          <div class="widget-content nopadding collapse in" id="collapseG2">
-            <ul class="recent-posts">
-              <li>
-                
-                <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 1,20€ €</a> </p>
-                </div>
-              </li>
-              <li>
-               
-                 <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 1,20 €</a> </p>
-                </div>
-              </li>
-              <li>
-               
-                 <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 1,20 €</a> </p>
-                </div>
-             
-            </ul>
-          </div>
-        </div>
-        
-
-         <div class="widget-box">
-          <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
-            <h5>Libros pendientes de servir más antigüos.</h5>
-          </div>
-          <div class="widget-content nopadding collapse in" id="collapseG2">
-            <ul class="recent-posts">
-              <li>
-                
-                <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Libro standar. Precio 20€ €</a> </p>
-                </div>
-              </li>
-              <li>
-               
-                 <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Libro Premium. Precio 25 €</a> </p>
-                </div>
-              </li>
-              <li>
-               
-                 <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
-                  <p><a href="#">Ramo de flores Rojas. Precio 1,20 €</a> </p>
-                </div>
-             
-            </ul>
-          </div>
-        </div>
-        
-      </div>
-      
-       
-
-
-        <div class="widget-box">
-          <div class="widget-title">
-            <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#tab1">Libro más vendido</a></li>
-              <li><a data-toggle="tab" href="#tab2">Ramo más vendido</a></li>
-              <li><a data-toggle="tab" href="#tab3">Vela más encendida</a></li>
-              <li><a data-toggle="tab" href="#tab4">Musica más escuchada</a></li>
-            </ul>
-          </div>
-          <div class="widget-content tab-content">
-            <div id="tab1" class="tab-pane active">
-              <p>Muestra la fotografia y la cantidad de libros vendidos.</p>
-              <img src="img/libro.png" width="100" height="200"  alt="demo-image"/></div>
-            <div id="tab2" class="tab-pane"> 
-              <p>Muestra la imagen y cantidad del ramo de flores más vendido.</p>
-              <img src="img/corona.jpeg" width="100" height="200" alt="demo-image"/>
-            </div>
-            <div id="tab3" class="tab-pane">
-              <p>Muestra la imagen y cantidad de la vela más vendida. </p>
-              <img src="img/vela.jpeg" width="100" height="200" alt="demo-image"/></div>
-               <div id="tab4" class="tab-pane">
-              <p>Muestra la imagen y cantidad de la canción más reproducida. </p>
-              <img src="img/musica.jpeg" width="100" height="200" alt="demo-image"/></div>
-          </div>
-         
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <?php
+    if($_GET["page"] == "index"){
+        include "partial/_index.php";
+    }
+    else if($_GET["page"] == "altaCliente"){
+        include "partial/_altaCliente.php";
+    }
+    else if($_GET["page"] == "altaProducto"){
+        include "partial/_altaProducto.php";
+    }
+    else if($_GET["page"] == "asociarProducto"){
+        include "partial/_asociarProducto.php";
+    }
+    else if($_GET["page"] == "flores"){
+        include "partial/_flores.php";
+    }
+    else if($_GET["page"] == "floristeria"){
+        include "partial/_floristeria.php";
+    }
+    else if($_GET["page"] == "imagenesReligiosas"){
+        include "partial/_imagenesReligiosas.php";
+    }
+    else if($_GET["page"] == "librosPendientes"){
+        include "partial/_librosPendientes.php";
+    }
+    else if($_GET["page"] == "librosServidos"){
+        include "partial/_librosServidos.php";
+    }
+    else if($_GET["page"] == "musica"){
+        include "partial/_musica.php";
+    }
+    else if($_GET["page"] == "vela"){
+        include "partial/_vela.php";
+    }
+    else if($_GET["page"] == "ventaAparato"){
+        include "partial/_ventaAparato.php";
+    }
+    else if($_GET["page"] == "ventaDifunto"){
+        include "partial/_ventaDifunto.php";
+    }
+    else if($_GET["page"] == "ventaFecha"){
+        include "partial/_ventaFecha.php";
+    }
+    else if($_GET["page"] == "ventaFloristeria"){
+        include "partial/_ventaFloristeria.php";
+    }
+    else if($_GET["page"] == "ventaFuneraria"){
+        include "partial/_ventaFuneraria.php";
+    }
+    else{
+        include "partial/_index.php";
+    }
+    ?>
 </div>
+
 
 <!--end-main-container-part-->
 
