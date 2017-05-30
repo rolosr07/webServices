@@ -8,6 +8,16 @@ $userInformation = json_decode($_SESSION["USER_INFORMATION"], true);
 
 $userInformation = $userInformation[0];
 
+if(!isset($userInformation)){
+    header('Location: login.php');
+}
+
+if(isset($_POST["CerrarSession"])){
+    session_destroy();
+    $_SESSION["USER_INFORMATION"] = "";
+    header('Location: login.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +40,7 @@ $userInformation = $userInformation[0];
 
 <!--Header-part-->
 <div id="header">
-  <h1><a href="dashboard.html">Eternal Innova Administración</a></h1>
+  <h1><a href="index.php?page=index">Eternal Innova Administración</a></h1>
 </div>
 <!--close-Header-part--> 
 
@@ -43,12 +53,22 @@ $userInformation = $userInformation[0];
         <li><a><i class="icon-user"></i> Mi Perfil</a></li>
         
         <li class="divider"></li>
-        <li><a href="login.php"><i class="icon-key"></i> Salir</a></li>
+        <li>
+            <form method="post" action="<?=$PHP_SELF;?>">
+            <button class="btn-link" name="CerrarSession" type="submit"><i class="icon-key"></i> Salir</button>
+            </form>
+        </li>
       </ul>
     </li>
-    
-   
-    <li class=""><a title="" href="login.php"><i class="icon icon-share-alt"></i> <span class="text">Salir</span></a></li>
+      <li class="">
+          <form method="post" action="<?=$PHP_SELF;?>" style="margin-top: 6px!important; font-size: 11px!important; color: #999!important;">
+              <button class="btn-link" type="submit" name="CerrarSession" title="" href="<?=$PHP_SELF;?>">
+                  <i class="icon icon-share-alt">
+                  </i>
+                  <span class="text">Salir</span>
+              </button>
+          </form>
+      </li>
   </ul>
 </div>
 <!--close-top-Header-menu-->
@@ -56,40 +76,39 @@ $userInformation = $userInformation[0];
 <!--sidebar-menu-->
 <div id="sidebar"><a href="index.php?page=index" class="visible-phone"><i class="icon icon-home"></i> Inicio</a>
   <ul>
-    <li class="active"><a href="index.php?page=index"><i class="icon icon-home"></i> <span>Inicio</span></a> </li>
+    <li class="<?php if($_GET["page"] == "index" or $_GET["page"] == ""){echo 'active';}?>"><a href="index.php?page=index"><i class="icon icon-home"></i> <span>Inicio</span></a> </li>
 
-    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Clientes</span> </a>
+    <li class="<?php if($_GET["page"] == "altaCliente" or $_GET["page"] == "asociarProducto"){echo 'submenu active';}else{ echo'submenu'; }?>"> <a href="#"><i class="icon icon-th-list"></i> <span>Clientes</span> </a>
       <ul>
-        <li><a href="index.php?page=altaCliente">Alta de Clientes</a></li>
-        <li><a href="index.php?page=asociarProducto">Asociar productos a clientes</a></li>
+        <li class="<?php if($_GET["page"] == "altaCliente"){echo 'active';}?>"><a href="index.php?page=altaCliente">Alta de Clientes</a></li>
+        <li class="<?php if($_GET["page"] == "asociarProducto"){echo 'active';}?>"><a  href="index.php?page=asociarProducto">Asociar productos a clientes</a></li>
       </ul>
     </li>
-     <li> <a href="index.php?page=floristeria"><i class="icon icon-gift"></i> <span>Alta de Floristerias</span></a> </li>
-    <li> <a href="index.php?page=altaProducto"><i class="icon icon-gift"></i> <span>Alta de productos</span></a> </li>
-
-    <li class="submenu"> <a href="#"><i class="icon icon-picture"></i> <span>Imagenes</span> </a>
+     <li class="<?php if($_GET["page"] == "floristeria"){echo 'active';}?>"> <a href="index.php?page=floristeria"><i class="icon icon-gift"></i> <span>Alta de Floristerias</span></a> </li>
+     <li class="<?php if($_GET["page"] == "altaProducto"){echo 'active';}?>"> <a href="index.php?page=altaProducto"><i class="icon icon-gift"></i> <span>Alta de productos</span></a> </li>
+    <li class="<?php if($_GET["page"] == "imagenesReligiosas" or $_GET["page"] == "flores" or $_GET["page"] == "vela" or $_GET["page"] == "musica"){echo 'submenu active';}else{ echo'submenu'; }?>"> <a href="#"><i class="icon icon-picture"></i> <span>Imagenes</span> </a>
       <ul>
-        <li><a href="index.php?page=imagenesReligiosas">Alta de Imagenes religiosas</a></li>
-        <li><a href="index.php?page=flores">Alta de Flores</a></li>
-        <li><a href="index.php?page=vela">Alta de Velas</a></li>
-        <li><a href="index.php?page=musica">Alta de Música</a></li>
-      </ul>
-    </li>
-
-     <li class="submenu"> <a href="#"><i class="icon icon-book"></i> <span>Pedidos de Libros</span> </a>
-      <ul>
-        <li><a href="index.php?page=librosPendientes">Pendientes de servir</a></li>
-        <li><a href="index.php?page=librosServidos">Servidos</a></li>
+        <li class="<?php if($_GET["page"] == "imagenesReligiosas"){echo 'active';}?>"><a href="index.php?page=imagenesReligiosas">Alta de Imagenes religiosas</a></li>
+        <li class="<?php if($_GET["page"] == "flores"){echo 'active';}?>"><a href="index.php?page=flores">Alta de Flores</a></li>
+        <li class="<?php if($_GET["page"] == "vela"){echo 'active';}?>"><a href="index.php?page=vela">Alta de Velas</a></li>
+        <li class="<?php if($_GET["page"] == "musica"){echo 'active';}?>"><a href="index.php?page=musica">Alta de Música</a></li>
       </ul>
     </li>
 
-    <li class="submenu"> <a href="#"><i class="icon icon-copy"></i> <span>Listados de Ventas</span> </a>
+     <li class="<?php if($_GET["page"] == "librosPendientes" or $_GET["page"] == "librosServidos"){echo 'submenu active';}else{ echo'submenu'; }?>" > <a href="#"><i class="icon icon-book"></i> <span>Pedidos de Libros</span> </a>
       <ul>
-        <li><a href="index.php?page=ventaFecha">Ventas por fecha</a></li>
-        <li><a href="index.php?page=ventafuneraria">Ventas por funeraria</a></li>
-         <li><a href="index.php?page=ventaFloristeria">Ventas por floristeria</a></li>
-        <li><a href="index.php?page=ventadifunto">Ventas al difunto</a></li>
-        <li><a href="index.php?page=ventaAparato">Ventas por equipos</a></li>
+        <li class="<?php if($_GET["page"] == "librosPendientes"){echo 'active';}?>"><a href="index.php?page=librosPendientes">Pendientes de servir</a></li>
+        <li class="<?php if($_GET["page"] == "librosServidos"){echo 'active';}?>"><a href="index.php?page=librosServidos">Servidos</a></li>
+      </ul>
+    </li>
+
+    <li class="<?php if($_GET["page"] == "ventaFecha" or $_GET["page"] == "ventaFuneraria" or $_GET["page"] == "ventaFloristeria" or $_GET["page"] == "ventaDifunto" or $_GET["page"] == "ventaAparato"){echo 'submenu active';}else{ echo'submenu'; }?>"> <a href="#"><i class="icon icon-copy"></i> <span>Listados de Ventas</span> </a>
+      <ul>
+        <li class="<?php if($_GET["page"] == "ventaFecha"){echo 'active';}?>"><a href="index.php?page=ventaFecha">Ventas por fecha</a></li>
+        <li class="<?php if($_GET["page"] == "ventaFuneraria"){echo 'active';}?>"><a href="index.php?page=ventaFuneraria">Ventas por funeraria</a></li>
+        <li class="<?php if($_GET["page"] == "ventaFloristeria"){echo 'active';}?>"><a href="index.php?page=ventaFloristeria">Ventas por floristeria</a></li>
+        <li class="<?php if($_GET["page"] == "ventaDifunto"){echo 'active';}?>"><a href="index.php?page=ventaDifunto">Ventas al difunto</a></li>
+        <li class="<?php if($_GET["page"] == "ventaAparato"){echo 'active';}?>"><a href="index.php?page=ventaAparato">Ventas por equipos</a></li>
       </ul>
     </li>
 </div>

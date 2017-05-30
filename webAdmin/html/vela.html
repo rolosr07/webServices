@@ -5,13 +5,13 @@
         <meta name="description" content="Panel de control Eternal Innova, donde podras dar de alta todos los Equipos fabricados por Eternal, productos y servicios para funerarias y profesionales del sector."/>
         <meta name="keywords" content="eternal, eternal innova, mesit, funerarias, condolencias, libro memorial, esquelas, mesit premiun, "/><meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/fullcalendar.css" />
-<link rel="stylesheet" href="css/matrix-style.css" />
-<link rel="stylesheet" href="css/matrix-media.css" />
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/jquery.gritter.css" />
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="../css/fullcalendar.css" />
+<link rel="stylesheet" href="../css/matrix-style.css" />
+<link rel="stylesheet" href="../css/matrix-media.css" />
+<link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="../css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -95,7 +95,7 @@
 <div id="content">
 <div id="content-header">
   
-  <h1>Alta y Modificación de Floristeria</h1>
+  <h1>Alta y Modificación de Velas</h1>
 </div>
 <div class="container-fluid">
   <hr>
@@ -103,100 +103,48 @@
     <div class="span6">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Alta de Floristeria</h5>
+          <h5>Alta de Velas</h5>
         </div>
         <div class="widget-content nopadding">
           <form action="#" method="get" class="form-horizontal">
             
             <div class="control-group">
-              <label class="control-label">Nombre Fiscal :</label>
+              <label class="control-label">Referencia :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Nombre fiscal" />
-              </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">Persona de Contacto :</label>
-              <div class="controls">
-                <input type="text" class="span11" placeholder="Persona de contacto" />
+                <input type="text" class="span11" placeholder="Referencia" />
               </div>
             </div>
            
-           <div class="control-group">
-              <label class="control-label">CIF :</label>
+            <div class="control-group">
+              <label class="control-label">Descripción :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="CIF" />
+                <input type="text" class="span11" placeholder="Descripción" />
               </div>
             </div>
 
+
             <div class="control-group">
-              <label class="control-label">Dirección :</label>
+              <label class="control-label">Precio :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Dirección" />
+                <input type="number"  class="span11" placeholder="Precio" />
               </div>
             </div>
 
+ 
             <div class="control-group">
-              <label class="control-label">Provincia :</label>
+             <label class="control-label">Subir fichero de la Vela</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="lista despegable Provincia" />
-                
-                </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">Localidad :</label>
-              <div class="controls">
-                 <input type="text" class="span11" placeholder="Lista despegable Localidad" />
-                </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">Número de Cuenta :</label>
-              <div class="controls">
-                 <input type="text" class="span11" placeholder="Número de cuenta" />
-                </div>
-            </div>
+                <input type="file" />
+              </div></div>
 
 
             <div class="control-group">
-              <label class="control-label">Teléfono :</label>
-              <div class="controls">
-                 <input type="text" class="span11" placeholder="Teléfono" />
-                </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">Email :</label>
-              <div class="controls">
-                 <input type="text" class="span11" placeholder="email" />
-                </div>
-            </div>
-
-            <div class="control-group">
-              <label class="control-label">Web :</label>
-              <div class="controls">
-                 <input type="text" class="span11" placeholder="Web" />
-                </div>
-            </div>
-
-<hr>  
-            <div class="control-group">
-              <label class="control-label">Funeraria que la recomienda:</label>
-              <div class="controls">
-                 <input type="text" class="span11" placeholder="despegable base datos funerarias" />
-                </div>
-            </div>
-
-
-
-
-            <div class="control-group">
-              <label class="control-label">Observaciones</label>
+              <label class="control-label">Observaciones :</label>
               <div class="controls">
                 <textarea class="span11" ></textarea>
               </div>
             </div>
+
             <div class="form-actions">
               <button type="submit" class="btn btn-success">Guardar</button>
               <button type="submit" class="btn btn-success">Borrar</button>
@@ -206,15 +154,18 @@
       </div>
       
     </div>
+
+
+
     <div class="span6">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Listado de floristerias dadas de alta.</h5>
+          <h5>Listado de Imagenes dadas de alta.</h5>
         </div>
         <div class="widget-content nopadding">
           <form action="#" class="form-horizontal">
             <div class="control-group">
-              <label for="normal" class="control-label">listado de todas las floristerias para poder seleccionar y modificar en la parte izquierda<br><br>Visualizar floristeria, funeraria que lo recomienda, localidad y ciudad </label>
+              <label for="normal" class="control-label">listado de todas las imagenes para poder seleccionar y modificar en la parte izquierda<br><hr>Se mostrara la fotografia de la imagen, referencia y precio.</label>
               
             </div>
             
@@ -231,20 +182,20 @@
 </div>
 
 <!--end-Footer-part-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-colorpicker.js"></script> 
-<script src="js/bootstrap-datepicker.js"></script> 
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.ui.custom.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootstrap-colorpicker.js"></script>
+<script src="../js/bootstrap-datepicker.js"></script>
 <script src="js/jquery.toggle.buttons.js"></script> 
-<script src="js/masked.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/matrix.form_common.js"></script> 
-<script src="js/wysihtml5-0.3.0.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/bootstrap-wysihtml5.js"></script> 
+<script src="../js/masked.js"></script>
+<script src="../js/jquery.uniform.js"></script>
+<script src="../js/select2.min.js"></script>
+<script src="../js/matrix.js"></script>
+<script src="../js/matrix.form_common.js"></script>
+<script src="../js/wysihtml5-0.3.0.js"></script>
+<script src="../js/jquery.peity.min.js"></script>
+<script src="../js/bootstrap-wysihtml5.js"></script>
 <script>
 	$('.textarea_editor').wysihtml5();
 </script>

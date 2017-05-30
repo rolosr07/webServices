@@ -5,13 +5,13 @@
         <meta name="description" content="Panel de control Eternal Innova, donde podras dar de alta todos los Equipos fabricados por Eternal, productos y servicios para funerarias y profesionales del sector."/>
         <meta name="keywords" content="eternal, eternal innova, mesit, funerarias, condolencias, libro memorial, esquelas, mesit premiun, "/><meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="css/fullcalendar.css" />
-<link rel="stylesheet" href="css/matrix-style.css" />
-<link rel="stylesheet" href="css/matrix-media.css" />
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/jquery.gritter.css" />
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="../css/fullcalendar.css" />
+<link rel="stylesheet" href="../css/matrix-style.css" />
+<link rel="stylesheet" href="../css/matrix-media.css" />
+<link href="../font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="../css/jquery.gritter.css" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -95,7 +95,7 @@
 <div id="content">
 <div id="content-header">
   
-  <h1>Alta y Modificación de Imagenes Religiosas</h1>
+  <h1>Listado de Ventas por Floristeria</h1>
 </div>
 <div class="container-fluid">
   <hr>
@@ -103,74 +103,116 @@
     <div class="span6">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Alta de Imagenes Religiosas</h5>
+          <h5>Buscador</h5>
         </div>
         <div class="widget-content nopadding">
           <form action="#" method="get" class="form-horizontal">
             
             <div class="control-group">
-              <label class="control-label">Referencia :</label>
+              <label class="control-label">Desde la Fecha :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Referencia" />
+                <input type="text" class="span11" placeholder="Fecha inicio" />
               </div>
             </div>
            
             <div class="control-group">
-              <label class="control-label">Descripción :</label>
+              <label class="control-label">Hasta la fecha :</label>
               <div class="controls">
-                <input type="text" class="span11" placeholder="Descripción" />
-              </div>
-            </div>
-            
-            <div class="control-group">
-              <label class="control-label">Precio :</label>
-              <div class="controls">
-                <input type="number"  class="span11" placeholder="Precio" />
+                <input type="text" class="span11" placeholder="Fecha final" />
               </div>
             </div>
 
- 
-            <div class="control-group">
-             <label class="control-label">Subir fichero del logotipo</label>
+                        <div class="control-group">
+              <label class="control-label">Floristeria :</label>
               <div class="controls">
-                <input type="file" />
-              </div></div>
-
-
-            <div class="control-group">
-              <label class="control-label">Observaciones :</label>
-              <div class="controls">
-                <textarea class="span11" ></textarea>
+                <input type="text" class="span11" placeholder="despegable con datos de la db Floristerias" />
+                <p> Si lo dejamos en blanco que muestre todos las ventas</p>
               </div>
             </div>
-
+             
             <div class="form-actions">
-              <button type="submit" class="btn btn-success">Guardar</button>
-              <button type="submit" class="btn btn-success">Borrar</button>
+              <button type="submit" class="btn btn-success">Buscar</button>
             </div>
           </form>
         </div>
       </div>
       
     </div>
-
-
-
     <div class="span6">
       <div class="widget-box">
         <div class="widget-title"> <span class="icon"> <i class="icon-align-justify"></i> </span>
-          <h5>Listado de Imagenes dadas de alta.</h5>
+          <h5>Listado de ventas por Floristeria entre fechas.</h5>
         </div>
         <div class="widget-content nopadding">
           <form action="#" class="form-horizontal">
             <div class="control-group">
-              <label for="normal" class="control-label">listado de todas las imagenes para poder seleccionar y modificar en la parte izquierda<br><hr>Se mostrara la fotografia de la imagen, referencia y precio.</label>
+              <label for="normal" class="control-label">listado de todas las ventas realizadas entre las fechas, ordenadas por Floristeria.</label>
               
             </div>
             
           </form>
         </div>
       </div>
+
+      <div class="container-fluid">
+    
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"> <i class="icon-book"></i> </span>
+            <h4>Listado de ventas realizadas</h4>
+          </div>
+          
+          <div class="widget-content nopadding">
+            <table class="table table-bordered table-striped with-check">
+              <thead>
+                <tr>
+                  <th><i class="icon-resize-vertical"></i></th>
+                  <th>Floristeria</th>
+                  <th>Difunto</th>
+                  <th>Precio</th>
+                  <th>Marcar como Pagado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td>La milagrosa</td>
+                  <td>José Peñas Lucas</td>
+                  
+                  <td>49,50 €</td>
+                  <td class="center"> Boton Pagar</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td>La milagrosa</td>
+                  <td>José Peñas Lucas</td>
+                  
+                  <td>56,50 €</td>
+                  <td class="center"> Pagado</td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td>La milagrosa</td>
+                  <td>José Peñas Lucas</td>
+                  
+                  <td>99 €</td>
+                  <td class="center"> Pagado</td>
+                </tr>
+                <tr>
+                 <td><input type="checkbox" /></td>
+                  <td>La milagrosa</td>
+                  <td>José Peñas Lucas</td>
+                  
+                  <td>49,50 €</td>
+                  <td class="center"> Pagado</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>    </div>    </div>    </div>
+        
       
     </div>  </div>
 </div></div>
@@ -181,20 +223,20 @@
 </div>
 
 <!--end-Footer-part-->
-<script src="js/jquery.min.js"></script> 
-<script src="js/jquery.ui.custom.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script src="js/bootstrap-colorpicker.js"></script> 
-<script src="js/bootstrap-datepicker.js"></script> 
+<script src="../js/jquery.min.js"></script>
+<script src="../js/jquery.ui.custom.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootstrap-colorpicker.js"></script>
+<script src="../js/bootstrap-datepicker.js"></script>
 <script src="js/jquery.toggle.buttons.js"></script> 
-<script src="js/masked.js"></script> 
-<script src="js/jquery.uniform.js"></script> 
-<script src="js/select2.min.js"></script> 
-<script src="js/matrix.js"></script> 
-<script src="js/matrix.form_common.js"></script> 
-<script src="js/wysihtml5-0.3.0.js"></script> 
-<script src="js/jquery.peity.min.js"></script> 
-<script src="js/bootstrap-wysihtml5.js"></script> 
+<script src="../js/masked.js"></script>
+<script src="../js/jquery.uniform.js"></script>
+<script src="../js/select2.min.js"></script>
+<script src="../js/matrix.js"></script>
+<script src="../js/matrix.form_common.js"></script>
+<script src="../js/wysihtml5-0.3.0.js"></script>
+<script src="../js/jquery.peity.min.js"></script>
+<script src="../js/bootstrap-wysihtml5.js"></script>
 <script>
 	$('.textarea_editor').wysihtml5();
 </script>
