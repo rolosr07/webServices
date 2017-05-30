@@ -26,35 +26,31 @@
                 <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
                     <h5>Ultimas ventas de flores físicas</h5>
                 </div>
-                <div class="widget-content nopadding collapse in" id="collapseG2">
+                <div class="widget-content nopadding collapse" id="collapseG2">
                     <ul class="recent-posts">
                         <li>
-
                             <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
                                 <p><a href="#">Ramo de flores Rojas. Precio 49,50 €</a> </p>
                             </div>
                         </li>
                         <li>
-
                             <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
                                 <p><a href="#">Ramo de flores Rojas. Precio 49,50 €</a> </p>
                             </div>
                         </li>
                         <li>
-
                             <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
                                 <p><a href="#">Ramo de flores Rojas. Precio 49,50 €</a> </p>
                             </div>
-
                     </ul>
                 </div>
             </div>
 
             <div class="widget-box">
-                <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+                <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG3"><span class="icon"><i class="icon-chevron-down"></i></span>
                     <h5>Ultimas ventas de flores virtuales</h5>
                 </div>
-                <div class="widget-content nopadding collapse in" id="collapseG2">
+                <div class="widget-content nopadding collapse" id="collapseG3">
                     <ul class="recent-posts">
                         <li>
                             <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
@@ -74,10 +70,10 @@
                 </div>
             </div>
             <div class="widget-box">
-                <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG2"><span class="icon"><i class="icon-chevron-down"></i></span>
+                <div class="widget-title bg_ly" data-toggle="collapse" href="#collapseG4"><span class="icon"><i class="icon-chevron-down"></i></span>
                     <h5>Libros pendientes de servir más antigüos.</h5>
                 </div>
-                <div class="widget-content nopadding collapse in" id="collapseG2">
+                <div class="widget-content nopadding collapse" id="collapseG4">
                     <ul class="recent-posts">
                         <li>
                             <div class="article-post"> <span class="user-info"> Fecha: 99/99/9999 Funeraria: La milagros Difunto: Miguel Fernandez Fernandea </span>
@@ -122,7 +118,6 @@
                     <p>Muestra la imagen y cantidad de la canción más reproducida. </p>
                     <img src="./img/musica.jpeg" width="100" height="200" alt="demo-image"/></div>
             </div>
-
         </div>
     </div>
 </div>

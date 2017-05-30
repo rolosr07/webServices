@@ -5,7 +5,7 @@
  * Date: 29/05/2017
  * Time: 3:35 PM
  */
-require 'tools/Medoo.php';
+require 'Medoo.php';
 
 use Medoo\Medoo;
 

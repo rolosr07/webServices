@@ -202,7 +202,7 @@ if(isset($_POST["CerrarSession"])){
 <script src="js/select2.min.js"></script> 
 <script src="js/matrix.popover.js"></script> 
 <script src="js/jquery.dataTables.min.js"></script> 
-<script src="js/matrix.tables.js"></script> 
+<script src="js/matrix.tables.js"></script>
 
 <script type="text/javascript">
   // This function is called from the pop-up menus to transfer to

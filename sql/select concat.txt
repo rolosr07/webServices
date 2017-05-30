@@ -1,0 +1,9 @@
+,
+            [
+                '4', [
+                ['', 'Seleccione la localidad'],
+                
+            ]]
+
+SELECT Concat("['",m.id, "','",REPLACE(m.municipio, "'", ""),"'],") FROM test.municipios m inner join provincias p on m.provincia = p.id 
+where p.id = 54;
