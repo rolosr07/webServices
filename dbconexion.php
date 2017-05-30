@@ -660,6 +660,18 @@ class BaseDatos
             return "";
         }
     }
+
+    public function registrarCliente($nombre, $apellido, $userName, $password, $email, $rol)
+    {
+        $sql = "INSERT INTO `usuario` (`nombre`, `apellido`, `userName`, `password`, `rol`, `email`, `activo`, `borrado`, `fechaCreacion`)
+                VALUES ('".$nombre."', '".$apellido."', '".$userName."','".$password."','".$rol."','".$email."', false, false, now())";
+
+        if (mysql_query($sql, $this->conexion))
+            return true;
+        else {
+            return false;
+        }
+    }
 }
 
 	
